@@ -4,20 +4,20 @@ package com.example.android.prjctone;
  * Created by wdc on 20/12/15.
  */
 public class RowItem {
-    private int imageId;
+    private String posterPath;
     private String title;
     private String desc;
 
-    public RowItem(int imageId, String title, String desc) {
-        this.imageId = imageId;
+    public RowItem(String posterPath, String title, String desc) {
+        this.posterPath = posterPath;
         this.title = title;
         this.desc = desc;
     }
-    public int getImageId() {
-        return imageId;
+    public String getPosterPath() {
+        return posterPath;
     }
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
     public String getDesc() {
         return desc;

@@ -1,12 +1,8 @@
 package com.example.android.prjctone;
 
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +24,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -128,14 +123,14 @@ public class MovieMenuFrag extends Fragment {
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
          */
-        private RowItem[] getMovieDataFromJson(String movieDBJsonStr, int movieDays)
+        private RowItem[] getMovieDataFromJson(String movieDBJsonStr, int numMovies)
                 throws JSONException {
 
             // These are the names of the JSON objects that need to be extracted.
             final String MDB_POSTER = "poster_path";
             final String MDB_TITLE = "title";
             final String MDB_DESCRIPTION = "overview";
-            final String MDB_LIST = "Results";
+            final String MDB_LIST = "results";
             // final String MDB_RATING = "vote_average";
            // final String MDB_POPULARITY = "popularity";
 
@@ -143,7 +138,16 @@ public class MovieMenuFrag extends Fragment {
             JSONObject movieJson = new JSONObject(movieDBJsonStr);
             JSONArray movieArray = movieJson.getJSONArray(MDB_LIST);
 
+            RowItem[] movieMenuRI = new RowItem[numMovies];
 
+            for(int i = 0; i < movieArray.length(); i++) {
+
+                JSONObject movieItem = movieArray.getJSONObject(i);
+                movieMenuRI[i].setPosterPath("http://image.tmdb.org/t/p/w500/" + movieItem.getString(MDB_POSTER));
+                movieMenuRI[i].setTitle(movieItem.getString(MDB_TITLE));
+                movieMenuRI[i].setDesc(movieItem.getString(MDB_DESCRIPTION));
+
+            }
 
             return movieMenuRI;
 
@@ -160,8 +164,6 @@ public class MovieMenuFrag extends Fragment {
             // Will contain the raw JSON response as a string.
             String movieJsonStr = null;
 
-            String format = "json";
-            String units = "metric";
             int numMovies = 20;
 
             try {
@@ -185,10 +187,10 @@ public class MovieMenuFrag extends Fragment {
                 reader = new BufferedReader(new InputStreamReader(inputStream));
 
                 String line;
+                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+// But it does make debugging a *lot* easier if you print out the completed
+// buffer for debugging.
                 while ((line = reader.readLine()) != null) {
-                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                    // But it does make debugging a *lot* easier if you print out the completed
-                    // buffer for debugging.
                     buffer.append(line + "\n");
                 }
 
@@ -200,7 +202,7 @@ public class MovieMenuFrag extends Fragment {
 
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attempting
+                // If the code didn't successfully get the movieDB data, there's no point in attempting
                 // to parse it.
                 return null;
             } finally {
@@ -223,7 +225,7 @@ public class MovieMenuFrag extends Fragment {
                 e.printStackTrace();
             }
 
-            // This will only happen if there was an error getting or parsing the forecast.
+            // This will only happen if there was an error getting or parsing the movieDB.
             return null;
         }
 
@@ -234,7 +236,7 @@ public class MovieMenuFrag extends Fragment {
                 for(RowItem movieItem : result) {
                     mMovieMenuAdapter.add(movieItem);
                 }
-                // New data is back from the server.  Hooray!
+
             }
         }
     }
