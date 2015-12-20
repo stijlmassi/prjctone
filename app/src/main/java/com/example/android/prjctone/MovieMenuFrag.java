@@ -11,8 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +30,7 @@ import java.util.ArrayList;
  */
 public class MovieMenuFrag extends Fragment {
 
-    private ArrayAdapter<RowItem> mMovieMenuAdapter;
+    private CustomImageViewAdapter mMovieMenuAdapter;
 
     static String movieDBURLs[] = {
             "https://api.themoviedb.org/3/discover/movie?api_key=01a844fdf284bf000e57f284487770ef&sort_by=popularity.desc",
@@ -75,16 +74,15 @@ public class MovieMenuFrag extends Fragment {
                              Bundle savedInstanceState) {
 
         mMovieMenuAdapter =
-                new ArrayAdapter<RowItem>(
-                        getActivity(),
+                new CustomImageViewAdapter(
+                        getActivity().getApplicationContext(),
                         R.layout.list_item_movie,
-                        R.id.list_item_movie_imageview,
                         new ArrayList<RowItem>());
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Get a reference to the ListView, and attach this adapter to it.
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_moviemenu);
+        GridView listView = (GridView) rootView.findViewById(R.id.listview_moviemenu);
         listView.setAdapter(mMovieMenuAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -119,7 +117,7 @@ public class MovieMenuFrag extends Fragment {
         /**
          * Take the String representing the complete forecast in JSON Format and
          * pull out the data we need to construct the Strings needed for the wireframes.
-         *
+         * <p/>
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
          */
@@ -132,18 +130,28 @@ public class MovieMenuFrag extends Fragment {
             final String MDB_DESCRIPTION = "overview";
             final String MDB_LIST = "results";
             // final String MDB_RATING = "vote_average";
-           // final String MDB_POPULARITY = "popularity";
+            // final String MDB_POPULARITY = "popularity";
 
 
             JSONObject movieJson = new JSONObject(movieDBJsonStr);
             JSONArray movieArray = movieJson.getJSONArray(MDB_LIST);
 
-            RowItem[] movieMenuRI = new RowItem[numMovies];
+            RowItem[] movieMenuRI = {
 
-            for(int i = 0; i < movieArray.length(); i++) {
+                    new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""),
+                    new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""),
+                    new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""),
+                    new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""),
+            };
+
+
+            // do I need to add on 'or i < numMovies' condition to this loop?
+            for (int i = 0; i < numMovies; i++) {
 
                 JSONObject movieItem = movieArray.getJSONObject(i);
-                movieMenuRI[i].setPosterPath("http://image.tmdb.org/t/p/w500/" + movieItem.getString(MDB_POSTER));
+
+
+                movieMenuRI[i].setPosterPath("http://image.tmdb.org/t/p/w500" + movieItem.getString(MDB_POSTER));
                 movieMenuRI[i].setTitle(movieItem.getString(MDB_TITLE));
                 movieMenuRI[i].setDesc(movieItem.getString(MDB_DESCRIPTION));
 
@@ -152,6 +160,7 @@ public class MovieMenuFrag extends Fragment {
             return movieMenuRI;
 
         }
+
         @Override
         protected RowItem[] doInBackground(String... params) {
 
@@ -233,7 +242,7 @@ public class MovieMenuFrag extends Fragment {
         protected void onPostExecute(RowItem[] result) {
             if (result != null) {
                 mMovieMenuAdapter.clear();
-                for(RowItem movieItem : result) {
+                for (RowItem movieItem : result) {
                     mMovieMenuAdapter.add(movieItem);
                 }
 
