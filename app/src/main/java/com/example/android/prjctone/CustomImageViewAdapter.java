@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +38,9 @@ public class CustomImageViewAdapter extends ArrayAdapter<RowItem> {
 
         if (recycled == null) {
             imageView = (ImageView) inflater.inflate(R.layout.list_item_movie, container, false);
+            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setPadding(8, 8, 8, 8);
         } else {
             imageView = (ImageView) recycled;
         }
