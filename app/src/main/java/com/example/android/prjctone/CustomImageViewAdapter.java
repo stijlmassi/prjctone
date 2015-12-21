@@ -1,8 +1,6 @@
 package com.example.android.prjctone;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,11 +31,9 @@ public class CustomImageViewAdapter extends ArrayAdapter<RowItem> {
 
         RowItem rowItem = getItem(position);
 
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         if (recycled == null) {
-            imageView = (ImageView) inflater.inflate(R.layout.list_item_movie, container, false);
+            imageView = new ImageView(context);
             imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
@@ -62,6 +58,6 @@ public class CustomImageViewAdapter extends ArrayAdapter<RowItem> {
                 .crossFade()
                 .into(imageView);
 
-        return recycled;
+        return imageView;
     }
 }

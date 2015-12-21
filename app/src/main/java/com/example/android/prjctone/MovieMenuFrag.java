@@ -62,6 +62,13 @@ public class MovieMenuFrag extends Fragment {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
+            movieMenu = 0;
+            updateMovieMenu();
+            return true;
+        }
+        else if(id == R.id.action_refresh){
+
+            movieMenu = 1;
             updateMovieMenu();
             return true;
         }
