@@ -75,7 +75,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     .fitCenter()
                     .override(500,750)
                     .dontAnimate()
-                    .placeholder(R.drawable.fillersmall)
                     .into(posterImage);
 
             TextView mTitleText = (TextView) findViewById(R.id.movie_title);
