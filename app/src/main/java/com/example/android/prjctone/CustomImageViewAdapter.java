@@ -49,11 +49,12 @@ public class CustomImageViewAdapter extends ArrayAdapter<RowItem> {
 
         }
 
+
         Glide.with(context)
                 .load(posterURL)
                 .fitCenter()
+                .dontAnimate()
                 .placeholder(R.drawable.fillersmall)
-                .crossFade()
                 .into(imageView);
 
         return imageView;
