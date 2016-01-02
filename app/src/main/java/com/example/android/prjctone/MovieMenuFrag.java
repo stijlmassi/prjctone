@@ -101,7 +101,7 @@ public class MovieMenuFrag extends Fragment {
                 String moviePoster = mMovieMenuAdapter.getItem(position).getPosterPath();
                 String movieTitle = mMovieMenuAdapter.getItem(position).getTitle();
                 String movieRelease = mMovieMenuAdapter.getItem(position).getRelease();
-                String movieRating = mMovieMenuAdapter.getItem(position).getRating();
+                double movieRating = mMovieMenuAdapter.getItem(position).getRating();
 
                 Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
 
@@ -111,7 +111,9 @@ public class MovieMenuFrag extends Fragment {
                 extras.putString("moviePoster", moviePoster);
                 extras.putString("movieTitle", movieTitle);
                 extras.putString("movieRelease", movieRelease);
-                extras.putString("movieRating", movieRating);
+                extras.putDouble("movieRating", movieRating);
+
+                intent.putExtras(extras);
 
                 startActivity(intent);
 
@@ -155,7 +157,7 @@ public class MovieMenuFrag extends Fragment {
             final String MDB_POSTER = "poster_path";
             final String MDB_TITLE = "original_title";
             final String MDB_DESCRIPTION = "overview";
-            final String MDB_RATING = "vote_count";
+            final String MDB_RATING = "vote_average";
             final String MDB_RELEASE = "release_date";
             final String MDB_LIST = "results";
             // final String MDB_RATING = "vote_average";
@@ -167,10 +169,10 @@ public class MovieMenuFrag extends Fragment {
 
             RowItem[] movieMenuRI = {
 
-                    new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),
-                    new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),
-                    new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),
-                    new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),
+                    new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),
+                    new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),
+                    new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),
+                    new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, ""),new RowItem("", "", "", 0, "")
             };
 
 
@@ -183,7 +185,10 @@ public class MovieMenuFrag extends Fragment {
                 movieMenuRI[i].setPosterPath("http://image.tmdb.org/t/p/w500" + movieItem.getString(MDB_POSTER));
                 movieMenuRI[i].setTitle(movieItem.getString(MDB_TITLE));
                 movieMenuRI[i].setDesc(movieItem.getString(MDB_DESCRIPTION));
-                movieMenuRI[i].setRating(movieItem.getString(MDB_RATING));
+
+                double MDBRating = Double.parseDouble(movieItem.getString(MDB_RATING));
+
+                movieMenuRI[i].setRating(MDBRating);
                 movieMenuRI[i].setRelease(movieItem.getString(MDB_RELEASE));
 
             }
