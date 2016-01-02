@@ -1,10 +1,14 @@
 package com.example.android.prjctone;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -44,9 +48,9 @@ public class MovieMenuFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Add this line in order for this fragment to handle menu events.
-      //  setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
-/*
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.moviemenufrag, menu);
@@ -58,12 +62,12 @@ public class MovieMenuFrag extends Fragment {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_refresh) {
+        if (id == R.id.by_popularity) {
             movieMenu = 0;
             updateMovieMenu();
             return true;
         }
-        else if(id == R.id.action_refresh){
+        else if(id == R.id.by_ratings){
 
             movieMenu = 1;
             updateMovieMenu();
@@ -71,7 +75,7 @@ public class MovieMenuFrag extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-*/
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +96,25 @@ public class MovieMenuFrag extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                String movieDesc = mMovieMenuAdapter.getItem(position).getDesc();
+                String moviePoster = mMovieMenuAdapter.getItem(position).getPosterPath();
+                String movieTitle = mMovieMenuAdapter.getItem(position).getTitle();
+                String movieRelease = mMovieMenuAdapter.getItem(position).getRelease();
+                String movieRating = mMovieMenuAdapter.getItem(position).getRating();
+
+                Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
+
+                Bundle extras = new Bundle();
+
+                extras.putString("movieDesc", movieDesc);
+                extras.putString("moviePoster", moviePoster);
+                extras.putString("movieTitle", movieTitle);
+                extras.putString("movieRelease", movieRelease);
+                extras.putString("movieRating", movieRating);
+
+                startActivity(intent);
+
 
             }
         });
@@ -130,8 +153,10 @@ public class MovieMenuFrag extends Fragment {
 
             // These are the names of the JSON objects that need to be extracted.
             final String MDB_POSTER = "poster_path";
-            final String MDB_TITLE = "title";
+            final String MDB_TITLE = "original_title";
             final String MDB_DESCRIPTION = "overview";
+            final String MDB_RATING = "vote_count";
+            final String MDB_RELEASE = "release_date";
             final String MDB_LIST = "results";
             // final String MDB_RATING = "vote_average";
             // final String MDB_POPULARITY = "popularity";
@@ -142,10 +167,10 @@ public class MovieMenuFrag extends Fragment {
 
             RowItem[] movieMenuRI = {
 
-                    new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""),
-                    new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""),
-                    new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""),
-                    new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""), new RowItem("", "", ""),
+                    new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),
+                    new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),
+                    new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),
+                    new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),new RowItem("", "", "", "", ""),
             };
 
 
@@ -158,6 +183,8 @@ public class MovieMenuFrag extends Fragment {
                 movieMenuRI[i].setPosterPath("http://image.tmdb.org/t/p/w500" + movieItem.getString(MDB_POSTER));
                 movieMenuRI[i].setTitle(movieItem.getString(MDB_TITLE));
                 movieMenuRI[i].setDesc(movieItem.getString(MDB_DESCRIPTION));
+                movieMenuRI[i].setRating(movieItem.getString(MDB_RATING));
+                movieMenuRI[i].setRelease(movieItem.getString(MDB_RELEASE));
 
             }
 

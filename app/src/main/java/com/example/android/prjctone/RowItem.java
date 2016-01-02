@@ -7,16 +7,35 @@ public class RowItem {
     private String posterPath;
     private String title;
     private String desc;
+    private String rating;
+    private String release;
 
-    public RowItem(String posterPath, String title, String desc) {
+    public RowItem(String posterPath, String title, String desc, String rating, String release) {
         this.posterPath = posterPath;
         this.title = title;
         this.desc = desc;
+        this.rating = rating;
+        this.release = release;
+
+    }
+
+    public void setRating(String rating){this.rating = rating;}
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRelease(String release){this.release = release;}
+
+    public String getRelease() {
+        return release;
     }
 
     public String getPosterPath() {
         return posterPath;
     }
+
+
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
