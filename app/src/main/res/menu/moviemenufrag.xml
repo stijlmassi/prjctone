@@ -8,4 +8,10 @@
     <item android:id="@+id/by_ratings"
         android:title="@string/by_ratings"
         app:showAsAction="never" />
+    <item android:id="@+id/by_popularityandratings"
+        android:title="sort by current"
+        app:showAsAction="never" />
+    <item android:id="@+id/favorite_movies"
+        android:title="@string/menufavs"
+        app:showAsAction="never" />
 </menu>

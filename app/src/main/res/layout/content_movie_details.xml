@@ -22,33 +22,43 @@
                 android:id="@+id/movie_poster"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="12dp"
                 android:src="@drawable/fillersmall" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="12dp">
+
 
                 <TextView
-                    android:layout_width="wrap_content"
                     android:id="@+id/movie_title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"
-                    android:text="@string/original_title" />
+                    android:paddingTop="4dp"
+                    android:text="@string/original_title"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
                     android:id="@+id/movie_release"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"
-                    android:text="@string/release_date" />
+                    android:paddingLeft="2dp"
+                    android:text="@string/release_date"
+                    android:textSize="12dp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
                     android:id="@+id/movie_rating"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/text_margin"
-                    android:text="@string/user_rating" />
+                    android:paddingLeft="2dp"
+                    android:text="@string/user_rating"
+                    android:textSize="12dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -56,7 +66,54 @@
             android:id="@+id/movie_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/movie_description" />
+            android:padding="13dp"
+            android:text="@string/movie_description"
+            android:textSize="15dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/trailer"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Watch the trailer on Youtube"
+            android:textColor="#F6546A"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="Review:"
+            android:textColor="#000000"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="loading review..."
+            android:textSize="12dp"
+            android:textStyle="italic" />
+
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

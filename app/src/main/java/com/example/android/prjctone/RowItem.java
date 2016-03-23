@@ -9,23 +9,52 @@ public class RowItem {
     private String desc;
     private double rating;
     private String release;
+    private String imagePath;
+    private String id;
+    private String trailer;
+    private String review;
 
-    public RowItem(String posterPath, String title, String desc, double rating, String release) {
+    public RowItem(String posterPath, String title, String desc, double rating, String release, String id, String imagePath, String trailer, String review) {
         this.posterPath = posterPath;
         this.title = title;
         this.desc = desc;
         this.rating = rating;
         this.release = release;
+        this.id = id;
+        this.imagePath = imagePath;
+        this.trailer = trailer;
+        this.review = review;
 
     }
 
-    public void setRating(double rating){this.rating = rating;}
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 
     public double getRating() {
         return rating;
     }
 
-    public void setRelease(String release){this.release = release;}
+    public void setRelease(String release) {
+        this.release = release;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getRelease() {
         return release;
@@ -35,7 +64,21 @@ public class RowItem {
         return posterPath;
     }
 
+    public String getTrailer() {
+        return trailer;
+    }
 
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;

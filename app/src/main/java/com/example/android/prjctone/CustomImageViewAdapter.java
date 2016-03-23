@@ -26,14 +26,18 @@ public class CustomImageViewAdapter extends ArrayAdapter<RowItem> {
     }
 
     public View getView(int position, View recycled, ViewGroup container) {
+
+     //   container.invalidate();// TEMPORARY SOLUTION TO GRAPHICAL CORRUPTION DUE TO GLIDE LIBRARY SEE-> https://github.com/bumptech/glide/issues/743
+
         final ImageView imageView;
+
 
         RowItem rowItem = getItem(position);
 
 
         if (recycled == null) {
             imageView = new ImageView(context);
-            //imageView.setLayoutParams(new GridView.LayoutParams(400, 750));
+           // imageView.setLayoutParams(new GridView.LayoutParams(370, 556));
            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } else {
             imageView = (ImageView) recycled;
